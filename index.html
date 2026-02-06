@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #7a0000, #1a0000);
+  font-family: 'Georgia', serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  animation: fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+h1 {
+  margin-bottom: 15px;
+}
+
+.rose {
+  font-size: 90px;
+  cursor: pointer;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+.music-btn {
+  margin-top: 20px;
+  padding: 12px 26px;
+  border-radius: 30px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.music-btn:hover {
+  transform: scale(1.05);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #2b0000;
+  padding: 25px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 420px;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: zoomIn 0.6s ease;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.buttons {
+  margin-top: 20px;
+  position: relative;
+  height: 90px;
+}
+
+button {
+  padding: 12px 22px;
+  border-radius: 25px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+#no {
+  background: #444;
+  color: white;
+  position: absolute;
+  transition: top 0.2s, left 0.2s;
+}
+
+.heart {
+  position: fixed;
+  font-size: 26px;
+  animation: floatUp 3s ease forwards;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-250px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Tap the rose 🌹</h1>
+  <div class="rose" onclick="openLetter()">🌹</div>
+  <br>
+  <button class="music-btn" onclick="playMusic()">Tap to play music 🎵</button>
+</div>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2>For you, my Valentine 🤍</h2>
+
+    <p>
+My love,<br><br>
+
+Tumhe pata hai? Kabhi-kabhi main sochti hoon ki agar meri zindagi ek kahaani hoti,
+toh uska sabse khoobsurat chapter tum hote. Tumhari entry ke baad sab kuch thoda sa
+zyada rangin, thoda sa zyada safe, aur bohot zyada pyaara ho gaya.<br><br>
+
+Tum mere liye sirf boyfriend nahi ho. Tum meri sukoon wali jagah ho. Jab duniya
+thakaa deti hai na, tab tumhari awaaz, tumhari baatein, bas tumhara hona hi kaafi hota
+hai. Tum mujhe bina bole samajh lete ho, aur jab main khud se bhi confuse hoti hoon,
+tum mujhe sambhaal lete ho.<br><br>
+
+Main perfect nahi hoon — main zyada feel karti hoon, zyada sochti hoon,
+kabhi-kabhi zyada attached ho jaati hoon. Par tumne mujhe kabhi kam ya zyada nahi
+mehsoos karwaya. Tumne mujhe main jaisi hoon waise hi accept kiya,
+aur yeh cheez mere liye sabse badi blessing hai.<br><br>
+
+Tumhare saath future sochna mujhe darata nahi, balki shaant karta hai.
+Simple si cheezein — tumhare saath hassna, late-night baatein,
+bina wajah ka pyaar, aur ek dusre ka haath pakad ke chalna —
+bas yehi chahiye mujhe.<br><br>
+
+Agar kabhi main zyada emotional ho jaun, ya zyada possessive lagun,
+toh bas itna yaad rakhna… main sirf tumse bohot pyaar karti hoon.
+Itna ki kabhi-kabhi lafzon mein fit nahi hota.<br><br>
+
+Main tumhara saath chahti hoon — har achhe din mein,
+har bure din mein, bina kisi shart ke.<br><br>
+
+Tum mere ho.<br>
+Aur main hamesha tumhari rahungi. 🤍
+    </p>
+
+    <h3>Will you be my Valentine?</h3>
+
+    <div class="buttons">
+      <button id="yes" onclick="yesClicked()">Yes 🤭</button>
+      <button id="no" onmouseover="moveNo()">No 😩</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function playMusic() {
+  document.getElementById("music").play();
+}
+
+function openLetter() {
+  document.getElementById("modal").style.display = "flex";
+}
+
+const savageLines = [
+  "Nice try. You crossed the line when you fell for me.",
+  "No is not an option anymore.",
+  "Stop running. You belong here.",
+  "That button is decorative.",
+  "Already mine. Catch up.",
+  "I chose you. End of discussion."
+];
+
+function moveNo() {
+  const no = document.getElementById("no");
+  no.style.left = Math.random() * 220 + "px";
+  no.style.top = Math.random() * 60 + "px";
+  alert(savageLines[Math.floor(Math.random() * savageLines.length)]);
+}
+
+function yesClicked() {
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "0px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 3000);
+  }
+}
+</script>
+
+</body>
+</html>
