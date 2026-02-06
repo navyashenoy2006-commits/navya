@@ -2,103 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For You ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Valentine ❤️</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
 
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle at top, #7a0000, #1a0000);
-  font-family: 'Georgia', serif;
+  background: radial-gradient(circle, #7a0000, #2b0000);
   color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
+  text-align: center;
 }
 
 .container {
-  text-align: center;
-  animation: fadeIn 1.5s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  max-width: 90%;
 }
 
 h1 {
-  margin-bottom: 15px;
-}
-
-.rose {
-  font-size: 90px;
-  cursor: pointer;
-  animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0); }
-}
-
-.music-btn {
-  margin-top: 20px;
-  padding: 12px 26px;
-  border-radius: 30px;
-  border: none;
-  background: #ff4d6d;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.music-btn:hover {
-  transform: scale(1.05);
-}
-
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: #2b0000;
-  padding: 25px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 420px;
-  max-height: 80vh;
-  overflow-y: auto;
-  animation: zoomIn 0.6s ease;
-}
-
-@keyframes zoomIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.buttons {
-  margin-top: 20px;
-  position: relative;
-  height: 90px;
+  font-size: 2.3rem;
+  margin-bottom: 20px;
+  animation: fadeIn 1.5s ease;
 }
 
 button {
-  padding: 12px 22px;
-  border-radius: 25px;
-  font-size: 16px;
+  padding: 14px 26px;
+  font-size: 1.1rem;
   border: none;
+  border-radius: 30px;
   cursor: pointer;
+  margin: 10px;
+  transition: all 0.3s ease;
 }
 
 #yes {
@@ -107,21 +49,74 @@ button {
 }
 
 #no {
-  background: #444;
+  background: black;
   color: white;
   position: absolute;
-  transition: top 0.2s, left 0.2s;
 }
 
-.heart {
+button:active {
+  transform: scale(0.95);
+}
+
+#message {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  min-height: 24px;
+}
+
+#playMusic {
+  background: #ffffff20;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.rose {
+  font-size: 60px;
+  cursor: pointer;
+  animation: float 2.5s ease-in-out infinite;
+}
+
+.popup {
   position: fixed;
-  font-size: 26px;
-  animation: floatUp 3s ease forwards;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-@keyframes floatUp {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-250px); opacity: 0; }
+.popup-content {
+  background: #3a0000;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 600px;
+  text-align: left;
+  line-height: 1.6;
+  animation: fadeIn 0.6s ease;
+}
+
+.popup-content h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.close {
+  text-align: center;
+  margin-top: 15px;
+  cursor: pointer;
+  color: #ffb3c1;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 </style>
 </head>
@@ -129,99 +124,89 @@ button {
 <body>
 
 <div class="container">
-  <h1>Tap the rose 🌹</h1>
-  <div class="rose" onclick="openLetter()">🌹</div>
-  <br>
-  <button class="music-btn" onclick="playMusic()">Tap to play music 🎵</button>
+  <button id="playMusic">Tap to play music 🎵</button>
+
+  <div class="rose" id="rose">🌹</div>
+
+  <h1>Will you be my Valentine? 💌</h1>
+
+  <button id="yes">Yes 🤭</button>
+  <button id="no">No 😩</button>
+
+  <p id="message"></p>
 </div>
 
-<audio id="music" loop>
+<audio id="bgMusic" preload="auto">
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<div class="modal" id="modal">
-  <div class="modal-content">
+<div class="popup" id="letterPopup">
+  <div class="popup-content">
     <h2>For you, my Valentine 🤍</h2>
 
     <p>
-My love,<br><br>
-
-Tumhe pata hai? Kabhi-kabhi main sochti hoon ki agar meri zindagi ek kahaani hoti,
-toh uska sabse khoobsurat chapter tum hote. Tumhari entry ke baad sab kuch thoda sa
-zyada rangin, thoda sa zyada safe, aur bohot zyada pyaara ho gaya.<br><br>
-
-Tum mere liye sirf boyfriend nahi ho. Tum meri sukoon wali jagah ho. Jab duniya
-thakaa deti hai na, tab tumhari awaaz, tumhari baatein, bas tumhara hona hi kaafi hota
-hai. Tum mujhe bina bole samajh lete ho, aur jab main khud se bhi confuse hoti hoon,
-tum mujhe sambhaal lete ho.<br><br>
-
-Main perfect nahi hoon — main zyada feel karti hoon, zyada sochti hoon,
-kabhi-kabhi zyada attached ho jaati hoon. Par tumne mujhe kabhi kam ya zyada nahi
-mehsoos karwaya. Tumne mujhe main jaisi hoon waise hi accept kiya,
-aur yeh cheez mere liye sabse badi blessing hai.<br><br>
-
-Tumhare saath future sochna mujhe darata nahi, balki shaant karta hai.
-Simple si cheezein — tumhare saath hassna, late-night baatein,
-bina wajah ka pyaar, aur ek dusre ka haath pakad ke chalna —
-bas yehi chahiye mujhe.<br><br>
-
-Agar kabhi main zyada emotional ho jaun, ya zyada possessive lagun,
-toh bas itna yaad rakhna… main sirf tumse bohot pyaar karti hoon.
-Itna ki kabhi-kabhi lafzon mein fit nahi hota.<br><br>
-
-Main tumhara saath chahti hoon — har achhe din mein,
-har bure din mein, bina kisi shart ke.<br><br>
-
-Tum mere ho.<br>
-Aur main hamesha tumhari rahungi. 🤍
+      My love,<br><br>
+      Tumhe pata hai? Kabhi-kabhi main sochti hoon ki agar meri zindagi ek kahaani hoti,
+      toh uska sabse khoobsurat chapter tum hote...
+      <br><br>
+      Tum mere liye sirf boyfriend nahi ho. Tum meri sukoon wali jagah ho.
+      <br><br>
+      Agar kabhi main zyada emotional ho jaun, ya zyada possessive lagun,
+      toh bas itna yaad rakhna — main sirf tumse bohot pyaar karti hoon.
+      <br><br>
+      Tum mere ho.  
+      Aur main hamesha tumhari rahungi. 🤍
     </p>
 
-    <h3>Will you be my Valentine?</h3>
-
-    <div class="buttons">
-      <button id="yes" onclick="yesClicked()">Yes 🤭</button>
-      <button id="no" onmouseover="moveNo()">No 😩</button>
-    </div>
+    <div class="close" onclick="closeLetter()">Close 🤍</div>
   </div>
 </div>
 
 <script>
-function playMusic() {
-  document.getElementById("music").play();
+const music = document.getElementById("bgMusic");
+const playBtn = document.getElementById("playMusic");
+const noBtn = document.getElementById("no");
+const msg = document.getElementById("message");
+const rose = document.getElementById("rose");
+const popup = document.getElementById("letterPopup");
+
+playBtn.onclick = () => {
+  music.play();
+  playBtn.style.display = "none";
+};
+
+rose.onclick = () => {
+  popup.style.display = "flex";
+};
+
+function closeLetter() {
+  popup.style.display = "none";
 }
 
-function openLetter() {
-  document.getElementById("modal").style.display = "flex";
-}
-
-const savageLines = [
-  "Nice try. You crossed the line when you fell for me.",
-  "No is not an option anymore.",
-  "Stop running. You belong here.",
-  "That button is decorative.",
-  "Already mine. Catch up.",
-  "I chose you. End of discussion."
+const savage = [
+  "Nice try 😏",
+  "You already belong to me.",
+  "No is disabled by love.",
+  "Stop running 😈",
+  "You’re mine ❤️"
 ];
 
-function moveNo() {
-  const no = document.getElementById("no");
-  no.style.left = Math.random() * 220 + "px";
-  no.style.top = Math.random() * 60 + "px";
-  alert(savageLines[Math.floor(Math.random() * savageLines.length)]);
+function escape() {
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 60);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+  msg.innerText = savage[Math.floor(Math.random() * savage.length)];
 }
 
-function yesClicked() {
-  for (let i = 0; i < 30; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.bottom = "0px";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 3000);
-  }
-}
+noBtn.addEventListener("mouseover", escape);
+noBtn.addEventListener("touchstart", escape);
+
+document.getElementById("yes").onclick = () => {
+  msg.innerText = "I knew it 🤍";
+};
 </script>
 
 </body>
 </html>
+
